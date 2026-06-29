@@ -1,0 +1,23 @@
+import socket
+
+target = input("ip: ")
+
+for port in range(20, 51):
+    s = socket.socket()
+    s.settimeout(1)
+
+    result = s.connect_ex((target, port))
+
+    if result == 0:
+        print(f"[OPEN] {port}")
+        
+        try:
+            data = s.recv(1024)
+            print(f"Banner: {data}")
+        except:
+            print("No banner received")
+
+    else:
+        print(f"[CLOSED] {port}")
+
+    s.close()
